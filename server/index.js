@@ -13,7 +13,9 @@ const app = express();
 
 
 app.use(cors({
-    origin:['http://localhost:5173',],
+    origin:['http://localhost:5173',
+        "https://e-commerce-website-k49v.onrender.com"
+    ],
     credentials:true
 }))
 app.use(express.json());
