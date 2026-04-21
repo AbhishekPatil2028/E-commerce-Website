@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import userLogo from "../assets/userimg.png";
-import { Card } from "@/components/ui/Card";
+import { Card } from "../components/ui/card";
 import { Button } from "../components/ui/button";
 import { ShoppingCart, Trash2 } from "lucide-react";
 import { CardContent, CardHeader } from "../components/ui/card";
