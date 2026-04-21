@@ -11,7 +11,8 @@ import { Input } from "../components/ui/input";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { setCart } from "../redux/productSlice";
-import { toast } from "sonner";   
+import { toast } from "sonner";  
+const API = import.meta.env.VITE_API_URL; 
 
 const Cart = () => {
   const { cart } = useSelector((store) => store.product);
@@ -24,12 +25,12 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-   const API = "http://localhost:3000/api/cart"
+  const API = import.meta.env.VITE_API_URL;
    const accessToken = localStorage.getItem('accessToken')
 
    const loadCart = async()=>{
     try{
-     const res = await axios.get(API,{
+     const res = await axios.get(`${API}/api/cart`,{
       headers:{
         Authorization:`Bearer ${accessToken}`
       }
@@ -44,15 +45,15 @@ const Cart = () => {
 
   const handleUpdateQuantity = async (productId, type)=>{
     try{
-      console.log("productId=",productId)
-      console.log("typr",type)
-      console.log("accessToken",accessToken)
-    const res = await axios.put(`${API}/update`,{productId, type},{
+      // console.log("productId=",productId)
+      // console.log("typr",type)
+      // console.log("accessToken",accessToken)
+    const res = await axios.put(`${API}/api/cart/update`,{productId, type},{
       headers:{
         Authorization:`Bearer ${accessToken}`
       }
     })
-    console.log("UPDATED CART:", res.data.cart);
+    // console.log("UPDATED CART:", res.data.cart);
     if(res.data.success){
    dispatch(setCart(res.data.cart))
     }
@@ -63,14 +64,14 @@ const Cart = () => {
 
   const handleRemove = async (productId)=>{
     try{
-      console.log("REMOVE ID:", productId); 
-   const res = await axios.delete(`${API}/remove/${productId}`,{
+      // console.log("REMOVE ID:", productId); 
+   const res = await axios.delete(`${API}/api/cart/remove/${productId}`,{
     headers:{
       Authorization:`Bearer ${accessToken}`,
     }
   });
    if(res.data.success){
-   console.log(res.data.cart)
+  //  console.log(res.data.cart)
      dispatch(setCart(res.data.cart))
      toast.success('Product removed from cart')
     }

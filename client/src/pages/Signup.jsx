@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label"
 import { Eye, EyeOff } from 'lucide-react'
 import axios from 'axios'
 import { toast } from 'sonner'
+const API = import.meta.env.VITE_API_URL;
 
 
 
@@ -39,10 +40,10 @@ const Signup = () => {
     }
     const submitHandler = async(e)=>{
         e.preventDefault()
-        console.log(formData)
+        // console.log(formData)
         try{
           setLoading(true)
-       const res = await axios.post('http://localhost:3000/api/user/register',formData,{
+       const res = await axios.post(`${API}/api/user/register`,formData,{
         headers:{
             "Content-Type":"application/json"
         }

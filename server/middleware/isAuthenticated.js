@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 export const isAuthenticated = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
-    console.log("Auth Header:", authHeader);
+    // console.log("Auth Header:", authHeader);
     if (!authHeader || !authHeader.startsWith("Bearer ")) {
         return res.status(400).json({
             success: false,
@@ -18,7 +18,7 @@ export const isAuthenticated = async (req, res, next) => {
    
 
     let decoded
-    console.log("SECRET_KEY",process.env.SECRET_KEY)
+    // console.log("SECRET_KEY",process.env.SECRET_KEY)
     try {
       decoded = jwt.verify(token, process.env.SECRET_KEY);
     } catch (error) {
@@ -33,7 +33,7 @@ export const isAuthenticated = async (req, res, next) => {
         message: "Access token is missing or invalid",
       });
     }
-console.log("DECODED:", decoded);
+// console.log("DECODED:", decoded);
     const user = await User.findById(decoded.id);
     if (!user) {
       return res.status(400).json({
@@ -42,7 +42,7 @@ console.log("DECODED:", decoded);
       });
     }
     req.user = user
-    console.log(user)
+    // console.log(user)
     req.id = user._id;
     next();
   } catch (error) {
@@ -55,6 +55,7 @@ console.log("DECODED:", decoded);
 };
 
 export const isAdmin = (req,res,next)=>{
+  //  console.log("USER ROLE:", req.user?.role);
   if(req.user && req.user.role === 'admin'){
     next()
   }else{

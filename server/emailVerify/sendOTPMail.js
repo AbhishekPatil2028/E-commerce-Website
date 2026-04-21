@@ -26,7 +26,7 @@ export const sendOTPEmail = async(otp,email)=>{
     transporter.sendMail(mailConfigurations,function(error,info){
         if(error) throw Error(error);
         console.log('OTP Sent Successfully');
-        console.log(info);
+        // console.log(info);
     });
 }
 

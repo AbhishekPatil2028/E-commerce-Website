@@ -10,8 +10,9 @@ import axios from 'axios'
 import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group"
 import { toast } from 'sonner'
 import {setUser} from '../../redux/userSlice'
+const API = import.meta.env.VITE_API_URL;
 
-console.log("setUser:", setUser)
+// console.log("setUser:", setUser)
 const UserInfo = () => {
   const navigate = useNavigate()
   const [updateUser, setupdateUser] = useState({
@@ -38,7 +39,7 @@ const UserInfo = () => {
   }
   
   const handleImage = (e) => {
-    console.log("UpdatedUse-",updateUser)
+    // console.log("UpdatedUse-",updateUser)
     const selectedFile = e.target.files[0];
     setfile(selectedFile)
     setupdateUser({...updateUser,profilePic:URL.createObjectURL(selectedFile)})  // preview only
@@ -51,7 +52,7 @@ const UserInfo = () => {
     try{
       // use FormData for text + file
       const formData = new FormData()
-      console.log("UpdatedUse-",updateUser)
+      // console.log("UpdatedUse-",updateUser)
         formData.append("firstName",updateUser.firstName)
         formData.append("lastName",updateUser.lastName)
         formData.append("email",updateUser.email)
@@ -65,7 +66,7 @@ const UserInfo = () => {
           formData.append("profilePic",file)
         }
  
-        const res = await axios.put(`http://localhost:3000/api/user/update/${userId}`,formData,{
+        const res = await axios.put(`${API}/api/user/update/${userId}`,formData,{
           headers:{
             Authorization:`Bearer ${accessToken}`,
             "Content-Type":"multipart/form-data"
@@ -89,7 +90,7 @@ const UserInfo = () => {
 
    const getUserDetails = async()=>{
      try{
-       const res = await axios.get(`http://localhost:3000/api/user/get-user/${userId}`)
+       const res = await axios.get(`${API}/api/user/get-user/${userId}`)
     if(res.data.success){
       setupdateUser(res.data.user)
     }

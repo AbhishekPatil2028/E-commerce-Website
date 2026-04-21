@@ -8,6 +8,7 @@ import { Input } from '../../components/ui/input'
 import { Edit } from 'lucide-react'
 import { Eye } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+const API = import.meta.env.VITE_API_URL;
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([])
@@ -16,9 +17,9 @@ const AdminUsers = () => {
   
   const getAllUsers = async()=>{
     const accessToken = localStorage.getItem("accessToken")
-    console.log("Token",accessToken)
+    console.log("Token in getuser",accessToken)
     try{
-       const res = await axios.get('http://localhost:3000/api/user/all-user',{
+       const res = await axios.get(`${API}/api/user/all-user`,{
         headers:{
           Authorization:`Bearer ${accessToken}`
         }
@@ -27,7 +28,7 @@ const AdminUsers = () => {
        setUsers(res.data.users)
  }
     }catch(error){
-      console.log(error)
+      console.log( "error in get all user",error)
     }
   
   }

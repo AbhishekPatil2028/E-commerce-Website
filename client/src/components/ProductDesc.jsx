@@ -5,12 +5,14 @@ import axios from 'axios'
 import { setCart } from '../redux/productSlice'
 import { toast } from 'sonner'
 import { useDispatch } from 'react-redux'
+const API = import.meta.env.VITE_API_URL;
+
 const ProductDesc = ({product}) => {
     const accessToken = localStorage.getItem('accessToken')
      const dispatch = useDispatch()
     const addToCart = async(productId)=>{
         try{
-            const res = await axios.post('http://localhost:3000/api/cart/add',{productId},{
+            const res = await axios.post(`${API}/api/cart/add`,{productId},{
                 headers:{
                     Authorization:`Bearer ${accessToken}`
                 }

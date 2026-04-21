@@ -7,6 +7,7 @@ import axios from "axios";
 import { setUser } from "../redux/userSlice";
 import { setCart } from "../redux/productSlice";
 import { toast } from "sonner";
+const API = import.meta.env.VITE_API_URL;
 
 const Navbar = () => {
   const {cart} = useSelector(store=>store.product)
@@ -18,9 +19,9 @@ const Navbar = () => {
   const logoutHandler = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      console.log(accessToken)
+      // console.log(accessToken)
       const res = await axios.post(
-        `http://localhost:3000/api/user/logout`,
+        `${API}/api/user/logout`,
         {},
         {
           headers: {
@@ -36,7 +37,8 @@ const Navbar = () => {
          return navigate('/')
       }
     } catch (error) {
-      console.log(error.message);
+       console.log("LOGOUT ERROR:", error.response?.data || error.message);
+      console.log("error in logout handler backend",error.message);
 
       
     }

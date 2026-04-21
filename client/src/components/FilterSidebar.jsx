@@ -7,10 +7,10 @@ import { Button } from './ui/button';
 const FilterSidebar = ({search, setSearch ,category, setCategory,brand,setBrand,setPriceRange,allProducts,priceRange}) => {
   const Categories = allProducts.map(p=>p.category)
   const UniqueCategory =['All', ...new Set(Categories)];
-  console.log(UniqueCategory);  
+  // console.log(UniqueCategory);  
   const Brand = allProducts.map(p=>p.brand)
   const uniqueBrand = ["All",...new Set(Brand)]
-  console.log(uniqueBrand)
+  // console.log(uniqueBrand)
 
    const handleCategoryClick = (val)=>{
     setCategory(val)

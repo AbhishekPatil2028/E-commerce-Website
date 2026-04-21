@@ -14,6 +14,9 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../redux/productSlice";
 import { toast } from "sonner"; 
+
+const API = import.meta.env.VITE_API_URL;
+
 const Products = () => {
 const {products} = useSelector(store=>store.product)
   const [allProducts,setAllProducts] =  useState([])
@@ -30,7 +33,7 @@ const {products} = useSelector(store=>store.product)
     
     try{
       setloading(true)
-      const res = await axios.get('http://localhost:3000/api/products/getallproducts');
+      const res = await axios.get(`${API}/api/products/getallproducts`);
       if(res.data.success){
          setAllProducts(res.data.products)
          dispatch(setProducts(res.data.products)) 
@@ -77,7 +80,7 @@ const {products} = useSelector(store=>store.product)
     getAllProducts();
    },[])
 
-   console.log(allProducts)
+  //  console.log(allProducts)
 
   return (
     <div className="pt-25 pb-10">

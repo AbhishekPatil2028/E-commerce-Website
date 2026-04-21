@@ -152,7 +152,7 @@ export const removeFromCart = async(req,res)=>{
       const userId = req.id;
    const productId = req.params.productId;   // ✅ FIX
 
-    console.log("productId in backend:", productId);
+    // console.log("productId in backend:", productId);
 
    let cart = await Cart.findOne({userId});
    if(!cart){

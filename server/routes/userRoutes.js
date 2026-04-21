@@ -2,7 +2,7 @@
 import express from "express";
 const router = express.Router();
 
-import authMiddleware from "../middleware/authMiddleware.js";
+// import authMiddleware from "../middleware/authMiddleware.js";
 import { isAuthenticated ,isAdmin} from "../middleware/isAuthenticated.js";
 import { registerUser,loginUser,logout,verify,reVerify ,forgotPassword, verifyOTP, changePassword, allUser, getUserById, updateUser} from "../controllers/userController.js";
 import { singleUpload } from "../middleware/multer.js";
@@ -16,15 +16,15 @@ router.post("/reverify", reVerify);
 // Login
 router.post("/login", loginUser);
 
-  router.get("/profile",authMiddleware,(req,res)=>{
-    res.json({
-      message:"Protected route accessed",
-      userId:req.user.id
-    })
-  })
+  // router.get("/profile",(req,res)=>{
+  //   res.json({
+  //     message:"Protected route accessed",
+  //     userId:req.user.id
+  //   })
+  // })
 
   // Logout
-  router.post("/logout", isAuthenticated,logout)
+  router.post("/logout",logout)
 
   router.post("/forgotPassword",forgotPassword)
   router.post("/verify-otp/:email",verifyOTP)

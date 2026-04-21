@@ -1,16 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+const API = import.meta.env.VITE_API_URL;
 
 const AdminOrders = () => {
   const [orders,setOrders] = useState([]);
   const [loading,setLoading] = useState(true);
   const accessToken = localStorage.getItem("accessToken");
-  console.log('orders',orders);
+  // console.log('orders',orders);
 
   useEffect(()=>{
     const fetchOrders = async ()=>{
       try{
-        const {data} = await axios.get("http://localhost:3000/api/orders/all",{
+        const {data} = await axios.get(`${API}/api/orders/all`,{
           headers:{Authorization:`Bearer ${accessToken}`},
         });
         if(data.success) setOrders(data.orders);

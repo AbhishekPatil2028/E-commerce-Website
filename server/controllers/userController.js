@@ -208,7 +208,7 @@ export const logout = async (req,res)=>{
   
   try{
  const userId = req.id
- console.log("USER ID:", req.id);
+//  console.log("USER ID:", req.id);
  await Session.deleteMany({userId:userId})
  await User.findByIdAndUpdate(userId,{isLoggedIn:false})
  return res.status(200).json({
@@ -408,8 +408,8 @@ export const updateUser = async(req,res)=>{
   let profilePicUrl = user.profilePic;
   let profilePicPublicId = user.profilePicPublicId;
 
-  console.log("BODY:", req.body);
-console.log("FILE:", req.file);
+  // console.log("BODY:", req.body);
+// console.log("FILE:", req.file);
   //If a new file is uploaded
   if(req.file){
     if(profilePicPublicId){

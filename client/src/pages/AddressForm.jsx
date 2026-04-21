@@ -15,6 +15,7 @@ import { Separator } from "../components/ui/separator";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import axios from "axios";
+const API = import.meta.env.VITE_API_URL;
 
 const AddressForm = () => {
   const [formData, setFormData] = useState({
@@ -50,13 +51,13 @@ const AddressForm = () => {
   const tax = parseFloat((subtotal * 0.05).toFixed(2));
   const total = subtotal + shipping + tax;
 
-  console.log(cart);
+  // console.log(cart);
 
   const handlePayment = async () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_URL}/api/orders/create-order`,
+        `${API}/api/orders/create-order`,
         {
           products: cart?.items?.map((item) => ({
             productId: item.productId._id,
@@ -74,7 +75,7 @@ const AddressForm = () => {
 
       if (!data.success) return toast.error("Something went wrong");
 
-      console.log("Razorpay data", data);
+      // console.log("Razorpay data", data);
 
       const options = {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
@@ -86,7 +87,7 @@ const AddressForm = () => {
         handler: async function (response) {
           try {
             const verifyRes = await axios.post(
-              `${import.meta.env.VITE_URL}/api/orders/verify-payment`,
+              `${API}/api/orders/verify-payment`,
               response,
               {
                 headers: {
@@ -112,7 +113,7 @@ const AddressForm = () => {
             // Handle user closing the popup
 
             await axios.post(
-              `${import.meta.env.VITE_URL}/api/orders/verify-payment`,
+              `${API}/api/orders/verify-payment`,
               {
                 razorpay_order_id: data.order.id,
                 paymentFailed: true,
@@ -138,7 +139,7 @@ const AddressForm = () => {
 
       rzp.on("payment.failed", async function (response) {
         await axios.post(
-          `${import.meta.env.VITE_URL}/api/orders/verify-payment`,
+          `${API}/api/orders/verify-payment`,
           {
             razorpay_order_id: data.order.id,
             paymentFailed: true,

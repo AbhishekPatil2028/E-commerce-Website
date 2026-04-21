@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { setCart } from "../redux/productSlice";
 import axios from "axios";
 import { toast } from "sonner";
+const API = import.meta.env.VITE_API_URL;
 
 const ProductCard = ({ product,loading }) => {
   const { productImg, productPrice, productName } = product;
@@ -16,12 +17,12 @@ const ProductCard = ({ product,loading }) => {
 
  const addToCart = async(productId)=>{
   try{
-      const res = await axios.post(`http://localhost:3000/api/cart/add`,{productId},{
+      const res = await axios.post(`${API}/api/cart/add`,{productId},{
         headers:{
           Authorization:`Bearer ${accessToken}`
         }
       })
-      console.log(res.data);
+      // console.log(res.data);
       if(res.data.success){
        toast.success('Product added to Cart Successfully')
        dispatch(setCart(res.data.cart))

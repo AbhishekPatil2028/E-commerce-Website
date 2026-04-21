@@ -45,6 +45,8 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+const API = import.meta.env.VITE_API_URL;
+
 const AdminProduct = () => {
   const { products } = useSelector((store) => store.product);
   const [editProduct, setEditProduct] = useState(null);
@@ -100,7 +102,7 @@ const AdminProduct = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:3000/api/products/update/${editProduct._id}`,
+        `${API}/products/update/${editProduct._id}`,
         formData,
         {
           headers: {
@@ -128,7 +130,7 @@ const AdminProduct = () => {
         (product) => product._id !== productId,
       );
       const res = await axios.delete(
-        `http://localhost:3000/api/products/delete/${productId}`,
+        `${API}/api/products/delete/${productId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,

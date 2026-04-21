@@ -1,64 +1,3 @@
-// import * as React from "react";
-// import { Tabs } from "radix-ui";
-// import { Label } from "radix-ui";
-
-// const Profile = () => (
-//     <div className="min-h-screen flex justify-center items-center">
-        
-    
-// 	<Tabs.Root
-// 		className=" flex w-[300px] flex-col  shadow-[0_2px_10px] shadow-blackA2 "
-// 		defaultValue="tab1"
-// 	>
-// 		<Tabs.List
-// 			className="flex shrink-0 border-b border-mauve6"
-// 			aria-label="Manage your account"
-// 		>
-// 			<Tabs.Trigger
-// 				className="flex h-[45px] flex-1 cursor-default select-none items-center justify-center bg-white px-5 text-[15px] leading-none text-mauve11 outline-none first:rounded-tl-md last:rounded-tr-md hover:text-violet11 data-[state=active]:text-violet11 data-[state=active]:shadow-[inset_0_-1px_0_0,0_1px_0_0] data-[state=active]:shadow-current data-[state=active]:focus:relative data-[state=active]:focus:shadow-[0_0_0_2px] data-[state=active]:focus:shadow-black"
-// 				value="tab1"
-// 			>
-// 				Profile
-// 			</Tabs.Trigger>
-// 			<Tabs.Trigger
-// 				className="flex h-[45px] flex-1 cursor-default select-none items-center justify-center bg-white px-5 text-[15px] leading-none text-mauve11 outline-none first:rounded-tl-md last:rounded-tr-md hover:text-violet11 data-[state=active]:text-violet11 data-[state=active]:shadow-[inset_0_-1px_0_0,0_1px_0_0] data-[state=active]:shadow-current data-[state=active]:focus:relative data-[state=active]:focus:shadow-[0_0_0_2px] data-[state=active]:focus:shadow-black"
-// 				value="tab2"
-// 			>
-// 				Orders
-// 			</Tabs.Trigger>
-// 		</Tabs.List>
-// 		<Tabs.Content
-// 			className="grow rounded-b-md bg-white p-5 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
-// 			value="tab1"
-// 		>
-// 		</Tabs.Content>
-// 		<Tabs.Content
-// 			className="grow rounded-b-md bg-white p-5 outline-none focus:shadow-[0_0_0_2px] focus:shadow-black"
-// 			value="tab2"
-// 		>
-// 			<div>
-//             <div className="flex flex-cl justify-center items-center bg-gray-100">
-//                 <h1 className="font-bold mb-7 text-2xl text-gray-800">Update Profile</h1>
-//                 <div className="w-full flex gap-10 justify-between items-start px-7 max-w-2xl">
-//                     {/*profile picture*/}
-//                     <div className="flex flex-col items-center">
-//                         <img src="/abhi img2.jpeg" alt="profile" className="w-32 h-32 rounded-full object-cover border-4 border-pink-800" />
-//                         <label className='mt-4 cursor-pointer bg-pink-600 text-white px-4 py-2 rounded-lg hover:bg-pink-700'>Change Picture</Label>
-
-
-//                     </div>
-
-//                 </div>
-
-//             </div>
-//             </div>
-// 		</Tabs.Content>
-// 	</Tabs.Root>
-//     </div>
-// );
-
-// export default Profile;
-
 
 
 import React, { useState } from "react";
@@ -72,13 +11,13 @@ import {
 import { Input } from "../components/ui/input";
 import { Button } from "../components/ui/button";
 import { Label } from "../components/ui/label";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import userLogo from '../assets/userimg.png';
 import axios from "axios";
 import { toast } from "sonner";
 import { setUser } from "../redux/userSlice";
 import MyOrder from "./MyOrder";
+const API = import.meta.env.VITE_API_URL;
 
 const Profile = () => {
   const [file, setfile] = useState(null);
@@ -102,7 +41,7 @@ const handChange = (e)=>{
     try{
       // use FormData for text + file
       const formData = new FormData()
-      console.log(updateUser)
+      // console.log(updateUser)
         formData.append("firstName",updateUser.firstName)
         formData.append("lastName",updateUser.lastName)
         formData.append("email",updateUser.email)
@@ -116,10 +55,10 @@ const handChange = (e)=>{
           formData.append("profilePic",file)
         }
   for (let pair of formData.entries()) {
-  console.log(pair[0], pair[1]);
+  // console.log(pair[0], pair[1]);
 } 
-console.log("UserId",userId)
-        const res = await axios.put(`http://localhost:3000/api/user/update/${userId}`,formData,{
+// console.log("UserId",userId)
+        const res = await axios.put(`${API}/api/user/update/${userId}`,formData,{
           headers:{
             Authorization:`Bearer ${accessToken}`,
             "Content-Type":"multipart/form-data"
@@ -143,7 +82,7 @@ console.log("UserId",userId)
     // const params = useParams()
     // console.log("params:",params)
     const userId = user?._id
-    console.log("userId: 2",userId)
+    // console.log("userId: 2",userId)
     const [updateUser, setupdateUser] = useState({
       lastName:user?.lastName,
       firstName:user?.firstName,

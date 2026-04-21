@@ -8,7 +8,7 @@ import { Product } from "../models/product.js";
 
 export const createOrder = async (req, res) => {
   try {
-    console.log("VERIFY BODY createOrder:", req.body);
+    // console.log("VERIFY BODY createOrder:", req.body);
     const { products, amount, tax, shipping, currency } = req.body;
     const options = {
       amount: Math.round(Number(amount) * 100), // convert to paise
@@ -44,7 +44,7 @@ export const createOrder = async (req, res) => {
 
 export const verifyPayment = async (req, res) => {
   try {
-    console.log("VERIFY BODY verifypayment:", req.body);
+    // console.log("VERIFY BODY verifypayment:", req.body);
     const {
       razorpay_order_id,
       razorpay_payment_id,
@@ -206,7 +206,7 @@ export const getSalesData = async(req,res)=>{
       }
     ])
 
-    console.log(salesByDate);
+    // console.log(salesByDate);
 
     const formattedSales = salesByDate.map((item)=>({
 
@@ -214,7 +214,7 @@ export const getSalesData = async(req,res)=>{
   amount:item.amount
 } ))
 
-console.log(formattedSales );
+// console.log(formattedSales );
 
 res.json({
   success:true,

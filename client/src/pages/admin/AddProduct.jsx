@@ -11,6 +11,7 @@ import axios from 'axios'
 import { toast } from 'sonner'
 import {useSelector} from 'react-redux'
 import { setProducts } from '../../redux/productSlice'
+const API = import.meta.env.VITE_API_URL;
 
  
   const AddProduct = () =>{
@@ -57,7 +58,7 @@ import { setProducts } from '../../redux/productSlice'
  
     try{
       setLoading(true)
-      const res = await axios.post('http://localhost:3000/api/products/add',formData,{
+      const res = await axios.post(`${API}/api/products/add`,formData,{
         headers:{
           Authorization:`Bearer ${accessToken}`
         }

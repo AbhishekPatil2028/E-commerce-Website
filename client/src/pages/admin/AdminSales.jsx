@@ -4,12 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/ca
 
 import {
   ResponsiveContainer,
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   Tooltip,
-  CartesianGrid,
   Area,
   AreaChart
 } from "recharts";
@@ -21,16 +18,17 @@ const AdminSales = () => {
     totalSales:0,
     salesByDate:[]
   })
+  const API = import.meta.env.VITE_API_URL;
 
   const fetchStats = async()=>{
     try{
     const accessToken = localStorage.getItem("accessToken")
-    const res = await axios.get(`${import.meta.env.VITE_URL}/api/orders/sales`,{
+    const res = await axios.get(`${API}/api/orders/sales`,{
      headers:{
       Authorization:`Bearer ${accessToken}`
      }
     })
-    console.log(res)
+    // console.log(res)
     if(res.data.success){
       setStats(res.data)
     }
