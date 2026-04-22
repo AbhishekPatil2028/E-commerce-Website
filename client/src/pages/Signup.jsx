@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import axios from 'axios'
 import { toast } from 'sonner'
 const API = import.meta.env.VITE_API_URL;
@@ -43,6 +43,7 @@ const Signup = () => {
         // console.log(formData)
         try{
           setLoading(true)
+          console.log("API is-",API)
        const res = await axios.post(`${API}/api/user/register`,formData,{
         headers:{
             "Content-Type":"application/json"
